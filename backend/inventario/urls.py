@@ -1,16 +1,20 @@
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from . import views  # Importamos nuestro archivo views.py
-# 1. Creamos un enrutador
-# DefaultRouter también crea una página principal de API para nosotros
+# Importamos la VISTA de token, no un archivo .py
+from rest_framework.authtoken.views import obtain_auth_token
+from . import views
+
+# Creamos el enrutador solo para los ViewSets
 router = DefaultRouter()
-# 2. Registramos nuestro ViewSet en el enrutador
-# Esto le dice al router: "Quiero que manejes el UserViewSet
-# bajo la ruta 'users'"
 router.register(r'users', views.UserViewSet)
-# 3. Definimos las urlpatterns de nuestra app
-# Le decimos a Django: "Incluye todas las URLs que el router generó"
+
+# Definimos las urlpatterns
 urlpatterns = [
+    # Incluimos las URLs que el router generó para 'users'
     path('', include(router.urls)),
+    
+    # Añadimos la URL para el login (obtener token)
+    # Esta es una URL separada que apunta a la vista que importamos.
+    # Le damos un nombre 'login' para identificarla.
+    path('login/', obtain_auth_token, name='login'),
 ]
