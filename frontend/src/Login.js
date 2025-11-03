@@ -1,13 +1,15 @@
 // frontend/src/Login.js
 
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     // Creamos un estado para guardar mensajes de error
     const [error, setError] = useState(null);
-
+    //creo mi variable navigate
+    const navigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault();
         setError(null); // Limpiamos errores anteriores
@@ -35,7 +37,11 @@ function Login() {
                 console.log('Respuesta del servidor:', data);
 
                 if (data.token) {
+                    //redirigiendo
+                    navigate("/dashboard");
                     console.log('¡Login exitoso! Token:', data.token);
+                    localStorage.setItem('token', data.token)
+
                     // ¡Éxito! Aquí guardaríamos el token para usarlo después
                 } else {
                     // Si no hay token, probablemente hubo un error
