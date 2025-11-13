@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import Login from './Login';
 import Dashboard from './Dashboard';
+import GestionUsuarios from './GestionUsuarios';
 import { useEffect } from 'react'; //Importamos useEffect para la persistencia
 //Importamos las herramientas para las rutas
 import { Routes, Route, useNavigate } from 'react-router-dom';
@@ -33,7 +34,9 @@ function App() {
         {/*Definimos nuestra primera ruta */}
         <Route path="/login" element={<Login />} />
         {/*Definimos la dashboard ruta */}
-        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        {/*Definimos la GestiondeUsuarios ruta */}
+        <Route path="/usuarios" element={<GestionUsuarios />} />
       </Routes>
     </div>
   );
