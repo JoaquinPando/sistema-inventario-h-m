@@ -15,6 +15,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     # 3. Solo usuarios autenticados pueden hacer consultas crud
     permission_classes = [IsAuthenticated]
+    # 4. Validamos el token
     authentication_classes = [TokenAuthentication] 
     
 

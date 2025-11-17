@@ -56,28 +56,33 @@ function Login() {
     };
 
     return (
-        <div>
-            <h2>Iniciar Sesión</h2>
-            <form onSubmit={handleSubmit}>
-                {/* Mostramos el mensaje de error si existe */}
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+        <div className="login-layout-wrapper">
+            <div className="login-form-container">
+                <h2>Iniciar Sesión</h2>
+                <form onSubmit={handleSubmit}>
+                    {/* Mostramos el mensaje de error si existe */}
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
 
-                <label>Nombre de Usuario:</label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
+                    <label>Nombre de Usuario:</label>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
 
-                <label>Contraseña:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                    <label>Contraseña:</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
 
-                <button type="submit">Ingresar</button>
-            </form>
+                    <button type="submit">Ingresar</button>
+                </form>
+            </div>
+            <div className="login-image-container">
+                {/* Este div será la imagen */}
+            </div>
         </div>
     );
 }
