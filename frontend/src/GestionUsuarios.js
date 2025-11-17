@@ -11,13 +11,20 @@ function GestionUsuarios() {
     const [updateUser, setUpdateUser] = useState(false);
     const [error, setError] = useState(null);
     const [idParaEditar, setIdParaEditar] = useState(null);
+    const ACCESS_TOKEN = localStorage.getItem('token');
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/users/', {
-        })
+        fetch('http://localhost:8000/api/users/',
+            {
+                headers: {
+                    'Authorization': `Token ${ACCESS_TOKEN}`,
+                },
+            })
+
             .then(Response => Response.json())
             .then(data => {
                 // Hacemos ambas cosas aquí adentro
+                console.log('mi token es: ', ACCESS_TOKEN)
                 console.log('Datos recibidos del API:', data);
                 setusuariosLista(data); //Guardamos la lista en el estado
             })
@@ -44,6 +51,7 @@ function GestionUsuarios() {
             method: userMetodo, // Le decimos que es un POST
             headers: {
                 'Content-Type': 'application/json', // Le decimos que enviamos JSON
+                'Authorization': `token ${ACCESS_TOKEN}`,
             },
             // 2. Convertimos nuestros datos de React a un string JSON
             body: JSON.stringify({
@@ -78,9 +86,8 @@ function GestionUsuarios() {
                             )
                         );
                     }
-                    setUsername('')
-                    setEmail('')
-                    setPassword('')
+                    limpiarCampos()
+
                 }
             })
             .catch(err => {
@@ -100,7 +107,7 @@ function GestionUsuarios() {
             </ul>
         </div>)
 
- 
+
 
     function openModal() {
         setIsModalOpen(true)
@@ -115,6 +122,7 @@ function GestionUsuarios() {
             method: 'DELETE', // Le decimos que es un DELETE
             headers: {
                 'Content-Type': 'application/json', // Le decimos que enviamos JSON
+                'Authorization': `Token ${ACCESS_TOKEN}`,
             }
         })
             .then(response => {
@@ -148,8 +156,15 @@ function GestionUsuarios() {
         setUpdateUser(true);
         setIsModalOpen(true);
     }
-
-
+    function limpiarCampos() {
+        setUsername('')
+        setEmail('')
+        setPassword('')
+    }
+    function nuevoUsuario() {
+        openModal()
+        limpiarCampos()
+    }
 
 
     return (
@@ -157,7 +172,7 @@ function GestionUsuarios() {
             <h1>Lista de Usuarios</h1>
 
             {/*Aquí ponemos el nuevo botón */}
-            <button onClick={openModal}>Crear Nuevo Usuario</button>
+            <button onClick={nuevoUsuario}>Crear Nuevo Usuario</button>
 
             {/*Y aquí dejamos la lista que ya teníamos */}
             <ul>

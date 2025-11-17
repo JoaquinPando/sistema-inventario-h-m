@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -11,3 +13,9 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     # 2. El traductor que usará
     serializer_class = UserSerializer
+    # 3. Solo usuarios autenticados pueden hacer consultas crud
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication] 
+    
+
+    
